@@ -29,7 +29,18 @@ $ npm install whatwg-fetch --save
 
 For a node.js implementation, try [node-fetch](https://github.com/bitinn/node-fetch).
 
-For use with webpack, refer to [Using WebPack with shims and polyfills](http://mts.io/2015/04/08/webpack-shims-polyfills/).
+For use with webpack, add this package in the `entry` configuration option before your application entry point:
+
+```javascript
+entry: ['whatwg-fetch', ...]
+```
+
+For babel and es2015+, make sure to import the file:
+
+```javascript
+import 'whatwg-fetch';
+fetch(...);
+```
 
 ## Usage
 
@@ -77,7 +88,7 @@ fetch('/users.json').then(function(response) {
 var form = document.querySelector('form')
 
 fetch('/users', {
-  method: 'post',
+  method: 'POST',
   body: new FormData(form)
 })
 ```
@@ -86,7 +97,7 @@ fetch('/users', {
 
 ```javascript
 fetch('/users', {
-  method: 'post',
+  method: 'POST',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -108,7 +119,7 @@ data.append('file', input.files[0])
 data.append('user', 'hubot')
 
 fetch('/avatars', {
-  method: 'post',
+  method: 'POST',
   body: data
 })
 ```
@@ -211,4 +222,4 @@ Firefox < 32, Chrome < 37, Safari, or IE.
 
 ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png)
 --- | --- | --- | --- | --- |
-Latest ✔ | Latest ✔ | 9+ ✔ | Latest ✔ | 6.1+ ✔ |
+Latest ✔ | Latest ✔ | 10+ ✔ | Latest ✔ | 6.1+ ✔ |

@@ -5,6 +5,6 @@
     "main": "fetch.js",
     "tag": "master",
     "reposType": "npm",
-    "version": "0.9.0",
+    "version": "0.8.2",
     "dependencies": {}
 }

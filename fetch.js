@@ -25,15 +25,18 @@
   function Headers(headers) {
     this.map = {}
 
+    var self = this
     if (headers instanceof Headers) {
-      headers.forEach(function(value, name) {
-        this.append(name, value)
-      }, this)
+      headers.forEach(function(name, values) {
+        values.forEach(function(value) {
+          self.append(name, value)
+        })
+      })
 
     } else if (headers) {
       Object.getOwnPropertyNames(headers).forEach(function(name) {
-        this.append(name, headers[name])
-      }, this)
+        self.append(name, headers[name])
+      })
     }
   }
 
@@ -69,12 +72,12 @@
     this.map[normalizeName(name)] = [normalizeValue(value)]
   }
 
-  Headers.prototype.forEach = function(callback, thisArg) {
+  // Instead of iterable for now.
+  Headers.prototype.forEach = function(callback) {
+    var self = this
     Object.getOwnPropertyNames(this.map).forEach(function(name) {
-      this.map[name].forEach(function(value) {
-        callback.call(thisArg, value, name, this)
-      }, this)
-    }, this)
+      callback(name, self.map[name])
+    })
   }
 
   function consumed(body) {
@@ -319,8 +322,10 @@
         xhr.responseType = 'blob'
       }
 
-      request.headers.forEach(function(value, name) {
-        xhr.setRequestHeader(name, value)
+      request.headers.forEach(function(name, values) {
+        values.forEach(function(value) {
+          xhr.setRequestHeader(name, value)
+        })
       })
 
       xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
